@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MvcTest.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<MvcTestContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcTestContext") ?? throw new InvalidOperationException("Connection string 'MvcTestContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
